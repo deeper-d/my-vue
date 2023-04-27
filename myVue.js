@@ -125,7 +125,6 @@ class Compile {
       var text = node.textContent;
 
       if (self.isElementNode(node)) {
-        log("element node: ", node);
         self.compile(node);
       } else if (self.isTextNode(node) && reg.test(text)) {
         // 判断是否是符合这种形式{{}}的指令
@@ -166,12 +165,10 @@ class Compile {
     Array.prototype.forEach.call(nodeAttrs, function (attr) {
       var attrName = attr.name;
       if (self.isDirective(attrName)) {
-        log("---- isDirective: ", attrName);
         var exp = attr.value;
         var dir = attrName.substring(2);
-        log("【exp dir】: ", exp, dir);
         if (self.isEventDirective(dir)) {
-          // 事件指令
+          // on:click 事件指令
           self.compileEvent(node, self.vm, exp, dir);
         } else {
           // v-model 指令
