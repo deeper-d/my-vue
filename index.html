@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./myVue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{title}}</h2>
+      <input v-model="name" />
+      <h1>{{name}}</h1>
+      <button v-on:click="clickMe">click me!</button>
+    </div>
+  </body>
+  <script>
+    var ele = document.querySelector("#name");
+    var selfVue = new SelfVue({
+      el: "#app",
+      data: {
+        title: "hello world",
+        name: "XX",
+      },
+      methods: {
+        clickMe: function () {
+          log("click me");
+          this.title = "change title";
+        },
+      },
+      mounted: function () {
+        window.setTimeout(() => {
+          this.title = "mounted hello title";
+        }, 1000);
+      },
+    });
+
+    window.setTimeout(function () {
+      selfVue.title = "你好";
+    }, 2000);
+
+    window.setTimeout(function () {
+      console.log("name 值改变了");
+      //   selfVue.data.name = "canfoo";
+      selfVue.name = "canfoo";
+    }, 3000);
+  </script>
+</html>
